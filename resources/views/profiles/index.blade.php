@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Perfis de Usuários')
+@section('title', 'Perfil de Usuário')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -37,7 +37,7 @@
                     <div class="col">
                     <h3 class="card-title mt-2"><b>Usuários</b></h3>
                   
-                    <a href="{{ route('users.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i>  Adicionar Usuário</a>
+                    <a href="" class="btn btn-primary float-right"><i class="fas fa-plus"></i>  Adicionar Perfil de Usuário</a>
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -52,29 +52,28 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @if($users)
-                      @foreach($users as $user)
+                    
+                      
                       <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                         <td class="text-center">
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
+                            <form action="" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
                               @csrf
                               @method('DELETE')
-                              <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                              <a href="" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
                               <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
                           </form>
                         </td>
                       </tr>
-                      @endforeach
-                      @endif
+                     
                     </tbody>
                   </table>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
-                  {{ $users->links() }}
+                  
                 </div>
               </div>
 
