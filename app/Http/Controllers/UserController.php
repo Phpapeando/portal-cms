@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,15 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        $profiles = Profile::all();
+
+        if($profiles->isEmpty()){
+            return redirect()->route('users.index')->with([
+                'message' => 'É necessário criar um Perfil de Usuário antes.',
+                'alert-type' => 'error']);
+        }
+
+        return view('users.create', compact('profiles'));
     }
 
     public function store(Request $request)
@@ -64,10 +73,11 @@ class UserController extends Controller
     {
 
         $user = User::find($id);
+        $profiles = Profile::all();
 
         if($user){
 
-        return view('users.create', compact('user'));
+        return view('users.create', compact('user', 'profiles'));
 
         }
 

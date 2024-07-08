@@ -1,9 +1,10 @@
 @extends('layout')
 
-@section('title', 'Criar Perfil')
+@section('title', isset($profile) ? 'Editar Perfil' : 'Criar Perfil')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 @endsection
 
 @section('js')
@@ -34,56 +35,61 @@
 
             <div class="card card-outline card-primary" data-bs-theme="dark">
                 <div class="card-header">
-                    <form action="" method="POST"></form>
+                    @if(isset($profile))
+                    <form action="{{ route('profiles.update', ['id' => $profile->id]) }}" method="POST">
+                        @method('PUT')
+                    @else
+                    <form action="{{ route('profiles.store') }}" method="POST">
+                    @endif
                         @csrf
                         <div>
-                            @if(isset($user))
-                            <h4 class="text-center"><b>Editar Usuário</b></h4>
+                            @if(isset($profile))
+                            <h4 class="text-center"><b>Editar Perfil</b></h4>
                             @else
-                            <h4 class="text-center"><b>Adicionar Usuário</b></h4>
+                            <h4 class="text-center"><b>Adicionar Perfil</b></h4>
                             @endif
                         </div>
                         <div class="row mt-1 form-group">
                             <div class="col">
-                                <label for="name">Nome Completo</label>
-                                <input type="text" class=" form-control @error('name') is-invalid @enderror" name="name" value="{{ isset($user) ? $user->name :  old('name')}}">
+                                <label for="name">Nome do Perfil</label>
+                                <input type="text" class=" form-control @error('name') is-invalid @enderror" name="name" value="{{ isset($profile) ? $profile->name :  old('name')}}">
                                 @error('name')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                             </div>
                         </div>
-                        <div class="row mt-1 form-group">
-                            <div class="col-md-6">
-                                <label for="email">Email</label>
-                                <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ isset($user) ? $user->email : old('email') }}">
-                                @error('email')<span class="error invalid-feedback">{{ $message }}</span>@enderror
+
+                        <label for="sites">Selecione os sites que os usuários desse perfil terão permissão para alterar:</label>
+                        @error('sites')
+                        <br><span  class="pt-2 mb-1 text-danger">
+                            <small>{{ $message }}</small>
+                        </span>
+                        @enderror
+                        <div class="row ml-2" >
+                            @foreach($sites as $site)
+                            <div class="col-6">
+                                <div class="icheck-primary">
+                                    @if(isset($profile))
+                                    <input type="checkbox" name="sites[]" {{$profile->sites->contains($site->id) ? 'checked' : '' }} id="{{ $site->id }}" value="{{ $site->id }}"/>
+                                    @else
+                                    <input type="checkbox" name="sites[]" {{ in_array($site->id, (array)old('sites')) ? 'checked' : '' }} id="{{ $site->id }}" value="{{ $site->id }}"/>
+                                    @endif
+                                    <label for="{{ $site->id }}"><small><b><span class="@error('sites') text-danger @enderror">{{ $site->name }}</span></b></small></label>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="password">Senha</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password">
-                                @error('password')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                            </div>
+                            @endforeach
                         </div>
-                        <div class="form-group">
-                            <label for="profile_id">Perfil</label>
-                            <select class="form-control select  @error('profile_id') is-invalid @enderror" style="width: 100%;" name="profile_id">
-                                <option  disabled selected>Selecione o perfil</option>
-                                <option {{ isset($user) && $user->profile_id == 1 ? 'selected' : ''}} value="1">Perfil 1</option>
-                                <option {{ isset($user) && $user->profile_id == 2 ? 'selected' : ''}} value="2">Perfil 2</option>
-                                <option {{ isset($user) && $user->profile_id == 3 ? 'selected' : ''}} value="3">Perfil 3</option>
-                            </select>
-                            @error('profile_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
-                        </div>
+                        
                         <div class="row">
                             <div class="col">
-                                @if(isset($user))
+                                @if(isset($profile))
                                 <button type="submit" class="float-right btn btn-primary mt-3 ml-1">
-                                    Editar   <i class="fa fa-edit"></i>
+                                    Salvar Alteração  <i class="fa fa-edit"></i>
                                 </button>
                                 @else
                                 <button type="submit" class="float-right btn btn-primary mt-3 ml-1">
                                     Salvar   <i class="fa fa-save"></i>
                                 </button>
                                 @endif
-                                <a href="{{ route('users.index') }}" type="button" class="float-right btn btn-secondary mt-3 ml-1">
+                                <a href="{{ route('profiles.index') }}" type="button" class="float-right btn btn-secondary mt-3 ml-1">
                                     Voltar   <i class="fas fa-arrow-circle-left"></i>
                                 </a>
                             </div>

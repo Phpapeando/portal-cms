@@ -71,9 +71,9 @@
                             <label for="profile_id">Perfil</label>
                             <select class="form-control select  @error('profile_id') is-invalid @enderror" style="width: 100%;" name="profile_id">
                                 <option  disabled selected>Selecione o perfil</option>
-                                <option {{ isset($user) && $user->profile_id == 1 ? 'selected' : ''}} value="1">Perfil 1</option>
-                                <option {{ isset($user) && $user->profile_id == 2 ? 'selected' : ''}} value="2">Perfil 2</option>
-                                <option {{ isset($user) && $user->profile_id == 3 ? 'selected' : ''}} value="3">Perfil 3</option>
+                                @foreach($profiles as $profile)
+                                <option {{ isset($user) && $user->profile_id == $profile->id ? 'selected' : ''}} value="{{ $profile->id }}">{{ $profile->name }}</option>
+                                @endforeach
                             </select>
                             @error('profile_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
@@ -81,7 +81,7 @@
                             <div class="col">
                                 @if(isset($user))
                                 <button type="submit" class="float-right btn btn-primary mt-3 ml-1">
-                                    Editar   <i class="fa fa-edit"></i>
+                                    Salvar Alteração  <i class="fa fa-edit"></i>
                                 </button>
                                 @else
                                 <button type="submit" class="float-right btn btn-primary mt-3 ml-1">
