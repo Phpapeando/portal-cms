@@ -47,23 +47,24 @@
                       <tr>
                         <th style="width: 10px">#</th>
                         <th>Nome</th>
-                        <th>Email</th>
-                        <th style="width: 93px">Ações</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
                       </tr>
                     </thead>
                     <tbody>
                     
                       
                       <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>1</td>
+                        <td>Usuário Master</td>
+                        <td class="text-center">
+                          <a href="" class="btn btn-sm btn-warning">Editar Perfil <i class="fas fa-edit"></i></a>
+                        </td>
                         <td class="text-center">
                             <form action="" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
                               @csrf
                               @method('DELETE')
-                              <a href="" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                              <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                              <button class="btn btn-sm btn-danger" type="submit">Excluir Perfil <i class="fas fa-trash"></i></button>
                           </form>
                         </td>
                       </tr>

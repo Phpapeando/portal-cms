@@ -13,4 +13,9 @@ class ProfileController extends Controller
 
         return view('profiles.index', compact('profile'));
     }
+
+    public function create()
+    {
+        return view('profiles.create');
+    }
 }

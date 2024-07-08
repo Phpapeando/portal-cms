@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Editar Usuário')
+@section('title', 'Criar Perfil')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -34,12 +34,7 @@
 
             <div class="card card-outline card-primary" data-bs-theme="dark">
                 <div class="card-header">
-                    @if(isset($user))
-                    <form action="{{ route('users.update', ['id' => $user->id]) }}" method="POST">
-                        @method('PUT')
-                    @else
-                    <form action="{{ route('users.store') }}" method="POST">
-                    @endif
+                    <form action="" method="POST"></form>
                         @csrf
                         <div>
                             @if(isset($user))
