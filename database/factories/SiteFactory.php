@@ -17,9 +17,9 @@ class SiteFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->text(23),
-            'url' => fake()->name(),
-            'description' => fake()->text(100),
+            'name' => fake()->company(),
+            'url' => fake()->url(),
+            'description' => fake()->paragraph(),
         ];
     }
 

@@ -24,8 +24,9 @@ Route::get('profiles/{id}/users', [ProfileController::class, 'getUsers'])->name(
 
 Route::get('/sites', [SiteController::class, 'index'])->name('sites.index');
 Route::get('/sites/create', [SiteController::class, 'create'])->name('sites.create');
+Route::get('sites/{id}', [SiteController::class, 'show'])->name('sites.show');
 Route::post('/sites', [SiteController::class, 'store'])->name('sites.store');
 Route::get('/sites/{id}/edit', [SiteController::class, 'edit'])->name('sites.edit');
 Route::put('/sites/{id}', [SiteController::class, 'update'])->name('sites.update');
 Route::delete('/sites/{id}', [SiteController::class, 'destroy'])->name('sites.destroy');
-Route::get('sites/{id}/users', [SiteController::class, 'getUsers'])->name('sites.users');
+

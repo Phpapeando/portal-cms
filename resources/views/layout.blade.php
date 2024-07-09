@@ -86,7 +86,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <ion-icon name=""></ion-icon>
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="fas fa-cog"></i>
               <p>
                 Configurações
                 <i class="fas fa-angle-left right"></i>
@@ -94,9 +94,9 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('sites.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Adicionar Sites</p>
+                  <p>Gerenciar Sites</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -116,7 +116,7 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="fas fa-globe"></i>
               <p>
                 Sites
                 <i class="fas fa-angle-left right"></i>
