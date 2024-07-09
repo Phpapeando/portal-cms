@@ -123,24 +123,14 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              @foreach($projetos as $projeto)
               <li class="nav-item">
                 <a href="" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Site 1</p>
+                  <small>{{ $projeto->name }}</small>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Site 2</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Site 3</p>
-                </a>
-              </li>
+              @endforeach
             </ul>
           </li>
 
