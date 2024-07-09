@@ -57,7 +57,7 @@
                             </div>
                         </div>
 
-                        <label for="sites">Selecione os sites que os usuários desse perfil terão permissão para alterar:</label>
+                        <label for="sites">Selecione os projetos que os usuários desse perfil terão permissão para alterar:</label>
                         @error('sites')
                         <br><span  class="pt-2 mb-1 text-danger">
                             <small>{{ $message }}</small>

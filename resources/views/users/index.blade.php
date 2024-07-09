@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Teste de Titulo')
+@section('title', 'Usuários')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

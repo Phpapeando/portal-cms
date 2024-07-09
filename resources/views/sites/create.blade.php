@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', isset($profile) ? 'Editar Perfil' : 'Criar Perfil')
+@section('title', isset($site) ? 'Editar Projeto' : 'Adicionar Projeto')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -44,9 +44,9 @@
                         @csrf
                         <div>
                             @if(isset($site))
-                            <h4 class="text-center"><b>Editar Site</b></h4>
+                            <h4 class="text-center"><b>Editar Projeto</b></h4>
                             @else
-                            <h4 class="text-center"><b>Adicionar Site</b></h4>
+                            <h4 class="text-center"><b>Adicionar Projeto</b></h4>
                             @endif
                         </div>
                         

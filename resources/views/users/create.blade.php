@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Editar Usuário')
+@section('title', isset($user) ? 'Editar Usuário' : 'Adicionar Usuário')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">

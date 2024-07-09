@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [UserController::class, 'index'])->name('users.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+});
+
+Route::get('/login', [UserController::class, 'loginIndex'])->name('login');
 
 Route::get('/users', [UserController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
@@ -29,4 +35,6 @@ Route::post('/sites', [SiteController::class, 'store'])->name('sites.store');
 Route::get('/sites/{id}/edit', [SiteController::class, 'edit'])->name('sites.edit');
 Route::put('/sites/{id}', [SiteController::class, 'update'])->name('sites.update');
 Route::delete('/sites/{id}', [SiteController::class, 'destroy'])->name('sites.destroy');
+
+
 

@@ -13,7 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="{{ url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+  <link rel="stylesheet" href="">
   <!-- iCheck -->
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- JQVMap -->
@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
   
 </head>
-<body class="hold-transition sidebar-mini layout-fixed ">
+<body class="hold-transition sidebar-mini layout-fixed dark-mode">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -58,21 +58,31 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="{{ url('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Sebrae</span>
+      <img src="{{ url('dist/img/Logo-Sebrae-branco.jpg') }}" alt="AdminLTE Logo" class="brand-image  elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Portal - SEBRAE</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="">
-          <i class="nav-icon fas fa-user"></i>
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+      <div class="user-panel mt-3 pb-3 mb-3">
+        <ul class="nav nav-pills nav-sidebar flex-column">
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-user text-info"></i>
+              <p>
+                Alexander Pierce
+              </p>
+            </a>
+          </li>
+        </ul>
+        <div class="text-right">
+          
+            <a class="btn btn-danger btn-xs btn-sm mr-3"><b>Sair  <i class="fas fa-sign-out-alt"></i></b></a>
+          
         </div>
       </div>
+      
 
       <!-- SidebarSearch Form -->
       
@@ -82,11 +92,19 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-          
+            <li class="nav-item">
+            <a href="{{ route('dashboard') }}" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt text-cyan"></i>
+              <p>
+                Dashboard
+                <span class="right badge badge-info">Go</span>
+                
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <ion-icon name=""></ion-icon>
-              <i class="fas fa-cog"></i>
+              <i class="nav-icon fas fa-cog text-cyan"></i>
               <p>
                 Configurações
                 <i class="fas fa-angle-left right"></i>
@@ -94,21 +112,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('sites.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gerenciar Sites</p>
-                </a>
-              </li>
-              <li class="nav-item">
                 <a href="{{ route('users.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Usuários</p>
+                  <p><i class="nav-icon fas fa-user text-gray"></i> Usuários</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="{{ route('profiles.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Perfis</p>
+                  <p><i class="nav-icon fas fa-id-badge text-gray"></i> Perfis</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('sites.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p><i class="nav-icon fas fa-folder text-gray"></i> Gerenciar Projetos</p>
                 </a>
               </li>
             </ul>
@@ -116,9 +134,9 @@
 
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="fas fa-globe"></i>
+              <i class="nav-icon fas fa-globe text-cyan"></i>
               <p>
-                Sites
+                Projetos
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -133,20 +151,6 @@
               @endforeach
             </ul>
           </li>
-
-          
-          
-          
-          
-          <li class="nav-header">EXAMPLES</li>
-          
-           
-                
-              
-   
-
-          
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

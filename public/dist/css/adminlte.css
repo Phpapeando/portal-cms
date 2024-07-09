@@ -12259,7 +12259,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 
 .main-header {
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid #666;
   z-index: 1034;
 }
 
@@ -24095,7 +24095,8 @@ body.text-sm .input-group-text {
 .dark-mode select:-webkit-autofill,
 .dark-mode select:-webkit-autofill:hover,
 .dark-mode select:-webkit-autofill:focus {
-  -webkit-text-fill-color: #fff;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0 2000px var(--gray-dark) inset;
 }
 
 .dark-mode .custom-range::-webkit-slider-runnable-track {

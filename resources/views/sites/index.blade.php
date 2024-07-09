@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('title', 'Gerenciar Sites')
+@section('title', 'Gerenciar Projetos')
 
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -81,9 +81,9 @@
             <div class="card">
                 <div class="card-header">
                     <div class="col">
-                    <h3 class="card-title mt-2"><b>Gerenciar Sites</b></h3>
+                    <h3 class="card-title mt-2"><b>Gerenciar Projetos</b></h3>
                   
-                    <a href="{{ route('sites.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i>  Adicionar Site</a>
+                    <a href="{{ route('sites.create') }}" class="btn btn-primary float-right"><i class="fas fa-plus"></i>  Adicionar Projeto</a>
                     </div>
                 </div>
                 <!-- /.card-header -->
@@ -130,7 +130,7 @@
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="siteDetailsModalLabel">Detalhes do Site</h5>
+              <h5 class="modal-title" id="siteDetailsModalLabel">Detalhes do Projeto</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>

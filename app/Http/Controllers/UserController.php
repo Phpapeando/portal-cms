@@ -108,16 +108,13 @@ class UserController extends Controller
             'profile_id.exists' => 'Esse Perfil não existe.',
         ]);
 
-        if (!$request->has('password')) {
-            $request->request->remove('password');
+        if ($request->filled('password')) {
+            $request->merge(['password' => Hash::make($request->password)]);
+        } else {
+            $request->request->remove('password'); // Remove o campo 'password' se estiver vazio
         }
-
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'profile_id' => $request->profile_id,
-        ]);
+    
+        $user->update($request->all());
 
         if($user){
             return redirect()->route('users.index')->with([
@@ -143,5 +140,10 @@ class UserController extends Controller
             'alert-type' =>'success'
         ]);
 
+    }
+
+    public function loginIndex(Request $request)
+    {
+        return view('login.index');
     }
 }
