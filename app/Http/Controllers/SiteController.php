@@ -115,7 +115,7 @@ class SiteController extends Controller
         $site->delete();
 
         return redirect()->route('sites.index')->with([
-            'message' => 'Perfil deletado com sucesso!',
+            'message' => 'Site deletado com sucesso!',
             'alert-type' => 'success'
         ]);
     }

@@ -28,12 +28,9 @@
 @endsection
 
 @section('content')
-    
-
     <div class="container mx-auto">
         <div class="row align-center justify-content-center">
             <div class="col-md-8">
-    
                 <div class="card card-outline card-primary" data-bs-theme="dark">
                     <div class="card-header">
                         <form action="{{ route('site_fields.store', $site->id) }}" method="POST">
@@ -61,7 +58,7 @@
                                 </div>
                             </div>
                             <button class="btn btn-info btn-sm" type="button" onclick="addField()"><i class="fa fa-plus"></i> Adicionar Campo</button>
-                            <button class="btn btn-danger btn-sm" type="button" onclick="addField()"><i class="fa fa-minus"></i> Remover Campo</button>
+                            <button id="remove-button" class="btn btn-danger btn-sm" disabled type="button" onclick="removeField()"><i class="fa fa-minus"></i> Remover Campo</button>
                             <div class="row">
                                 <div class="col">
                                     <button type="submit" class="float-right btn btn-primary mt-3 ml-1">
@@ -81,28 +78,47 @@
 
     <script>
         let fieldIndex = 1;
+        const removeButton = document.getElementById('remove-button');
+
         function addField() {
             const container = document.getElementById('fields-container');
             const fieldHTML = `
                 <div class="fields">
-                                    <div class="row">
-                                        <div class="form-group col-9">
-                                            <label for="name">Nome do Campo:</label>
-                                            <input type="text" class=" form-control" name="fields[0][name]" placeholder="Nome do Campo" required>
-                                        </div>
-                                    
-                                        <div class="col-3">
-                                            <label for="fields[0][type]">Tipo:</label>
-                                            <select class=" form-control" name="fields[0][type]" required>
-                                                <option value="text">Texto</option>
-                                                <option value="textarea">Textarea</option>
-                                                <option value="image">Imagem</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>`;
+                    <div class="row">
+                        <div class="form-group col-9">
+                            <label for="name">Nome do Campo:</label>
+                            <input type="text" class=" form-control" name="fields[${fieldIndex}][name]" placeholder="Nome do Campo" required>
+                        </div>
+                        <div class="col-3">
+                            <label for="fields[${fieldIndex}][type]">Tipo:</label>
+                            <select class=" form-control" name="fields[${fieldIndex}][type]" required>
+                                <option value="text">Texto</option>
+                                <option value="textarea">Textarea</option>
+                                <option value="image">Imagem</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>`;
             container.insertAdjacentHTML('beforeend', fieldHTML);
             fieldIndex++;
+            updateRemoveButtonState();
+        }
+
+        function removeField() {
+            const container = document.getElementById('fields-container');
+            if (container.children.length > 1) {
+                container.removeChild(container.lastElementChild);
+                fieldIndex--;
+                updateRemoveButtonState();
+            }
+        }
+
+        function updateRemoveButtonState() {
+            if (document.getElementById('fields-container').children.length > 1) {
+                removeButton.disabled = false;
+            } else {
+                removeButton.disabled = true;
+            }
         }
     </script>
 @endsection

@@ -48,7 +48,7 @@
             profilesList.empty();
 
             // Atualizar o botão "Gerenciar Campos" com o siteId correto
-            manageFieldsButton.attr('href', '/sites/' + siteId + '/fields/manage');
+            manageFieldsButton.attr('href', '/sites/' + siteId);
 
             // Fazer uma requisição AJAX para obter os detalhes do site
             $.ajax({
@@ -148,7 +148,7 @@
                   <!-- Os perfis serão carregados aqui -->
               </ul>
               <div class="mt-2">
-                <a href="" id="manageFieldsButton" class="btn btn-primary">Gerenciar Campos</a>
+                <a href="" id="manageFieldsButton" class="btn btn-primary">Ir Para o Projeto</a>
               </div>
           </div>
           <div class="modal-footer">

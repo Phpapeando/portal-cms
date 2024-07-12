@@ -49,16 +49,21 @@ class SiteFieldController extends Controller
         $field->field_type = $request->field_type;
         $field->save();
 
-        return redirect()->route('site_fields.manage', $siteId)->with('success', 'Campo atualizado com sucesso.');
+        return redirect()->route('sites.show', $siteId)->with([
+            'message' => 'Campo alterado com sucesso.',
+            'alert-type' => 'success'
+        ]);
     }
 
     public function destroy($siteId, $fieldId)
     {
-        $site = Site::findOrFail($siteId);
         $field = SiteField::findOrFail($fieldId);
         $field->delete();
 
-        return redirect()->route('site_fields.manage', $siteId)->with('success', 'Campo removido com sucesso.');
+        return redirect()->route('sites.show', $siteId)->with([
+            'message' => 'Campo removido com sucesso.',
+            'alert-type' => 'success'
+        ]);
     }
 
 }

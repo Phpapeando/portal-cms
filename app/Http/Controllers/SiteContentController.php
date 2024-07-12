@@ -29,7 +29,10 @@ class SiteContentController extends Controller
                 
             );
         }
-        return redirect()->route('site_fields.manage', $siteId)->with('success', 'Campo adicionado com sucesso.');
+        return redirect()->route('sites.show', $siteId)->with([
+            'message' => 'Campos adicionados com sucesso.',
+            'alert-type' => 'success'
+        ]);
     }
 
     public function createContents($siteId)
