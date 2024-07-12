@@ -16,6 +16,12 @@ class SiteController extends Controller
 
     public function show($id)
     {
+        $site = Site::with(['profiles', 'fields.contents'])->findOrFail($id);
+        return view('sites.show', compact('site'));
+    }
+
+    public function details($id)
+    {
         $site = Site::with('profiles')->findOrFail($id);
 
         return response()->json($site);

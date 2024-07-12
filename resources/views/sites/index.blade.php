@@ -32,43 +32,47 @@
 <script>
   $(document).ready(function() {
       $('#siteDetailsModal').on('show.bs.modal', function(event) {
-          var button = $(event.relatedTarget);
-          var siteId = button.data('site-id');
-          var modal = $(this);
-          var siteName = modal.find('#siteName');
-          var siteUrl = modal.find('#siteUrl');
-          var siteDescription = modal.find('#siteDescription');
-          var profilesList = modal.find('#profilesList');
+            var button = $(event.relatedTarget);
+            var siteId = button.data('site-id');
+            var modal = $(this);
+            var siteName = modal.find('#siteName');
+            var siteUrl = modal.find('#siteUrl');
+            var siteDescription = modal.find('#siteDescription');
+            var profilesList = modal.find('#profilesList');
+            var manageFieldsButton = modal.find('#manageFieldsButton');
 
-          // Limpar os detalhes anteriores
-          siteName.text('');
-          siteUrl.text('');
-          siteDescription.text('');
-          profilesList.empty();
+            // Limpar os detalhes anteriores
+            siteName.text('');
+            siteUrl.text('');
+            siteDescription.text('');
+            profilesList.empty();
 
-          // Fazer uma requisição AJAX para obter os detalhes do site
-          $.ajax({
-              url: '/sites/' + siteId, // Rota para obter os detalhes do site
-              method: 'GET',
-              success: function(data) {
-                  siteName.text(data.name);
-                  siteUrl.text(data.url);
-                  siteDescription.text(data.description);
-                  
-                  if (data.profiles.length > 0) {
-                      data.profiles.forEach(function(profile) {
-                          profilesList.append('<li class="list-group-item">' + profile.name + '</li>');
-                      });
-                  } else {
-                      profilesList.append('<li class="list-group-item">Nenhum perfil associado.</li>');
-                  }
-              },
-              error: function() {
-                  siteName.text('Erro ao carregar os detalhes do site.');
-              }
-          });
-      });
-  });
+            // Atualizar o botão "Gerenciar Campos" com o siteId correto
+            manageFieldsButton.attr('href', '/sites/' + siteId + '/fields/manage');
+
+            // Fazer uma requisição AJAX para obter os detalhes do site
+            $.ajax({
+                url: '/sites/' + siteId + '/details/', // Rota para obter os detalhes do site
+                method: 'GET',
+                success: function(data) {
+                    siteName.text(data.name);
+                    siteUrl.text(data.url);
+                    siteDescription.text(data.description);
+                    
+                    if (data.profiles.length > 0) {
+                        data.profiles.forEach(function(profile) {
+                            profilesList.append('<li class="list-group-item">' + profile.name + '</li>');
+                        });
+                    } else {
+                        profilesList.append('<li class="list-group-item">Nenhum perfil associado.</li>');
+                    }
+                },
+                error: function() {
+                    siteName.text('Erro ao carregar os detalhes do site.');
+                }
+            });
+        });
+    });
 </script>
 
 @endsection
@@ -143,6 +147,9 @@
               <ul id="profilesList" class="list-group">
                   <!-- Os perfis serão carregados aqui -->
               </ul>
+              <div class="mt-2">
+                <a href="" id="manageFieldsButton" class="btn btn-primary">Gerenciar Campos</a>
+              </div>
           </div>
           <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

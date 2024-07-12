@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
   
 </head>
-<body class="hold-transition sidebar-mini layout-fixed dark-mode">
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
   <!-- Preloader -->
@@ -57,7 +57,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link">
+    <a href="#" class="brand-link pl-0">
       <img src="{{ url('dist/img/Logo-Sebrae-branco.jpg') }}" alt="AdminLTE Logo" class="brand-image  elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">Portal - SEBRAE</span>
     </a>
@@ -65,25 +65,29 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3">
+      <div class="user-panel mt-3">
         <ul class="nav nav-pills nav-sidebar flex-column">
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-user text-info"></i>
-              <p>
-                Alexander Pierce
-              </p>
-            </a>
-          </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user text-info"></i>
+                    <p>Alexander Pierce</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="" class="nav-link">
+                    <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
+                    <p>Logout</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link" id="theme-toggle">
+                    <i id="theme-icon" class="nav-icon fas fa-moon text-warning"></i>
+                    <p id="theme-text">Ativar Modo Escuro</p>
+                </a>
+            </li>
         </ul>
-        <div class="text-right">
-          
-            <a class="btn btn-danger btn-xs btn-sm mr-3"><b>Sair  <i class="fas fa-sign-out-alt"></i></b></a>
-          
-        </div>
-      </div>
-      
-
+    </div>
+    
       <!-- SidebarSearch Form -->
       
       <!-- Sidebar Menu -->
@@ -143,7 +147,7 @@
             <ul class="nav nav-treeview">
               @foreach($projetos as $projeto)
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('sites.show', $projeto->id) }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <small>{{ $projeto->name }}</small>
                 </a>
@@ -201,6 +205,7 @@
 </div>
 <!-- ./wrapper -->
 
+<script src="{{ url('dist/js/theme-toggle.js') }}"></script>
 <!-- jQuery -->
 <script src="{{ url('plugins/jquery/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
