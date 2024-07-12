@@ -92,32 +92,40 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Nome</th>
-                        <th style="width: 230px">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($sites as $site)
-                      <tr>
-                        <td>{{ $site->id }}</td>
-                        <td>{{ $site->name }}</td>
-                        <td class="text-center">
-                          <a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target="#siteDetailsModal" data-site-id="{{ $site->id }}">Exibir Detalhes <i class="fas fa-info-circle"></i></a>
-                          <a href="{{ route('sites.edit', $site->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                          <form action="{{ route('sites.destroy', $site->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                          </form>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
+                    @forelse($sites as $site)
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Nome</th>
+                                <th style="width: 230px">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ $site->id }}</td>
+                                <td>{{ $site->name }}</td>
+                                <td class="text-center">
+                                <a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target="#siteDetailsModal" data-site-id="{{ $site->id }}">Exibir Detalhes <i class="fas fa-info-circle"></i></a>
+                                <a href="{{ route('sites.edit', $site->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                <form action="{{ route('sites.destroy', $site->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    @empty
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Não há projetos cadastrados.</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    @endforelse
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
@@ -147,12 +155,10 @@
               <ul id="profilesList" class="list-group">
                   <!-- Os perfis serão carregados aqui -->
               </ul>
-              <div class="mt-2">
-                <a href="" id="manageFieldsButton" class="btn btn-primary">Ir Para o Projeto</a>
-              </div>
           </div>
           <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <a href="" id="manageFieldsButton" class="btn btn-info">Ir Para o Projeto   <i class="fas fa-arrow-right"></i></a>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar   <i class="fas fa-times"></i></button>
           </div>
       </div>
   </div>

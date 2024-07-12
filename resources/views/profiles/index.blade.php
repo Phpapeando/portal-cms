@@ -73,32 +73,40 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Nome</th>
-                        <th style="width: 220px">Ações</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @foreach($profiles as $profile)
-                      <tr>
-                        <td>{{ $profile->id }}</td>
-                        <td>{{ $profile->name }}</td>
-                        <td class="text-center">
-                          <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#usersModal" data-profile-id="{{ $profile->id }}">Exibir Usuários  <i class="fas fa-user"></i></a>
-                          <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                          <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                          </form>
-                        </td>
-                      </tr>
-                      @endforeach
-                    </tbody>
-                  </table>
+                    @forelse($profiles as $profile)
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Nome</th>
+                                <th style="width: 220px">Ações</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>{{ $profile->id }}</td>
+                                <td>{{ $profile->name }}</td>
+                                <td class="text-center">
+                                <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#usersModal" data-profile-id="{{ $profile->id }}">Exibir Usuários  <i class="fas fa-user"></i></a>
+                                <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </form>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    @empty
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Não há perfis cadastrados.</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    @endforelse
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">

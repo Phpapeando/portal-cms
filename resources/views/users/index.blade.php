@@ -42,35 +42,41 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                  @forelse($users as $user)
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Nome</th>
+                          <th>Email</th>
+                          <th style="width: 93px">Ações</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{{ $user->id }}</td>
+                          <td>{{ $user->name }}</td>
+                          <td>{{ $user->email }}</td>
+                          <td class="text-center">
+                              <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
+                                @csrf
+                                @method('DELETE')
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
+                            </form>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  @empty
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th style="width: 10px">#</th>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th style="width: 93px">Ações</th>
+                        <th class="text-center">Não há usuários cadastrados.</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      @if($users)
-                      @foreach($users as $user)
-                      <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td class="text-center">
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
-                              @csrf
-                              @method('DELETE')
-                              <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                              <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
-                          </form>
-                        </td>
-                      </tr>
-                      @endforeach
-                      @endif
-                    </tbody>
                   </table>
+                  @endforelse
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
