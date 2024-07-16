@@ -69,14 +69,17 @@
                         </div>
                         <div class="form-group">
                             <label for="profile_id">Perfil</label>
-                            <select class="form-control select  @error('profile_id') is-invalid @enderror" style="width: 100%;" name="profile_id">
-                                <option  disabled selected>Selecione o perfil</option>
+                            <select class="form-control select @error('profile_id') is-invalid @enderror" style="width: 100%;" name="profile_id">
+                                <option disabled selected>Selecione o perfil</option>
                                 @foreach($profiles as $profile)
-                                <option {{ isset($user) && $user->profile_id == $profile->id ? 'selected' : ''}} value="{{ $profile->id }}">{{ $profile->name }}</option>
+                                    <option value="{{ $profile->id }}" {{ old('profile_id', isset($user) ? $user->profile_id : '') == $profile->id ? 'selected' : '' }}>
+                                        {{ $profile->name }}
+                                    </option>
                                 @endforeach
                             </select>
                             @error('profile_id')<span class="error invalid-feedback">{{ $message }}</span>@enderror
                         </div>
+                        
                         <div class="row">
                             <div class="col">
                                 @if(isset($user))

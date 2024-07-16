@@ -2,6 +2,31 @@
 
 @section('title', 'Dashboard')
 
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@endsection
+
+@section('scripts')
+<script>
+    @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type', 'info') }}";
+        switch(type){
+            case 'success':
+                toastr.success("{{ Session::get('message') }}");
+                break;
+            
+            case 'error':
+                toastr.error("{{ Session::get('message') }}");
+                break;
+        }
+    @endif
+</script>
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -18,7 +43,9 @@
                         <div class="icon">
                             <i class="fas fa-users"></i>
                         </div>
+                        @if(auth()->user()->profile->id == 1)
                         <a href="{{ route('users.index') }}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
     
@@ -31,7 +58,9 @@
                         <div class="icon">
                             <i class="fas fa-id-badge"></i>
                         </div>
+                        @if(auth()->user()->profile->id == 1)
                         <a href="{{ route('profiles.index') }}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
     
@@ -44,7 +73,9 @@
                         <div class="icon">
                             <i class="fas fa-globe"></i>
                         </div>
+                        @if(auth()->user()->profile->id == 1)
                         <a href="{{ route('sites.index') }}" class="small-box-footer">Mais informações <i class="fas fa-arrow-circle-right"></i></a>
+                        @endif
                     </div>
                 </div>
             </div>

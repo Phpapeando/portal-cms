@@ -70,11 +70,11 @@
             <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user text-info"></i>
-                    <p>Alexander Pierce</p>
+                    <p>{{ auth()->user()->name }}</p>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="{{ route('logout') }}" class="nav-link">
                     <i class="nav-icon fas fa-sign-out-alt text-danger"></i>
                     <p>Logout</p>
                 </a>
@@ -106,6 +106,7 @@
               </p>
             </a>
           </li>
+          @if(auth()->user()->profile->id == 1)
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cog text-cyan"></i>
@@ -135,7 +136,7 @@
               </li>
             </ul>
           </li>
-
+          @endif
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-globe text-cyan"></i>

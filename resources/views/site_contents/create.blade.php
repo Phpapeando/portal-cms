@@ -5,14 +5,14 @@
         <h1>Adicionar Conteúdos ao Site: {{ $site->name }}</h1>
         <form action="{{ route('site_contents.store', $site->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @foreach($fields as $field)
+            @foreach($site->fields as $field)
                 <div class="form-group">
-                    <label>{{ $field->field_name }}</label>
+                    <label>{{ $site->field->field_name }}</label>
                     @if($field->field_type == 'text')
                         <input type="text" name="contents[{{ $field->id }}]" class="form-control">
-                    @elseif($field->field_type == 'textarea')
+                    @elseif($site->field->field_type == 'textarea')
                         <textarea name="contents[{{ $field->id }}]" class="form-control"></textarea>
-                    @elseif($field->field_type == 'image')
+                    @elseif($site->field->field_type == 'image')
                         <input type="file" name="contents[{{ $field->id }}]" class="form-control">
                     @endif
                 </div>

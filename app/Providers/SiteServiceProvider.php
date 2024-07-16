@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Site;
+use Illuminate\Support\Facades\Auth;
 
 class SiteServiceProvider extends ServiceProvider
 {
@@ -22,7 +23,13 @@ class SiteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
-            $view->with('projetos', Site::all());
+
+            if(Auth::check()){
+                $user = Auth::user();
+                $projetos = $user->sites;
+    
+                $view->with('projetos', $projetos);
+            }
         });
     }
 }

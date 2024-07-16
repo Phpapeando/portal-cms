@@ -73,6 +73,12 @@
             });
         });
     });
+    $('#deleteSiteModal').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      var siteId = button.data('site-id');
+      var modal = $(this);
+      modal.find('#deleteForm').attr('action', '/sites/' + siteId);
+  });
 </script>
 
 @endsection
@@ -92,40 +98,34 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    @forelse($sites as $site)
-                        <table class="table table-bordered">
-                            <thead>
+                    @if(isset($sites) && !$sites->isEmpty())
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Nome</th>
                                 <th style="width: 230px">Ações</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
+                            @foreach($sites as $site)
                             <tr>
                                 <td>{{ $site->id }}</td>
                                 <td>{{ $site->name }}</td>
                                 <td class="text-center">
                                 <a href="" class="btn btn-sm btn-info" data-toggle="modal" data-target="#siteDetailsModal" data-site-id="{{ $site->id }}">Exibir Detalhes <i class="fas fa-info-circle"></i></a>
                                 <a href="{{ route('sites.edit', $site->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                <form action="{{ route('sites.destroy', $site->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteSiteModal" data-site-id="{{ $site->id }}"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    @empty
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Não há projetos cadastrados.</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    @endforelse
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                        <ul id="usersList" class="list-group">
+                            <li class="list-group-item">Nenhum Projeto cadastrado.</li>
+                        </ul>
+                    @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
@@ -137,7 +137,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Detalhes-->
 <div class="modal fade" id="siteDetailsModal" tabindex="-1" role="dialog" aria-labelledby="siteDetailsModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -162,6 +162,30 @@
           </div>
       </div>
   </div>
+</div>
+<!-- Modal Excluir Site -->
+<div class="modal fade" id="deleteSiteModal" tabindex="-1" role="dialog" aria-labelledby="deleteSiteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteSiteModalLabel">Excluir Projeto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja excluir este projeto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" action="" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 

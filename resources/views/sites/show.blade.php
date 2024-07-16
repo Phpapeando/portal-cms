@@ -216,7 +216,7 @@
                 </div>
                 <div class="card-footer clearfix">
                     @if(! $site->fields->isEmpty())
-                        <a href="{{ route('site_contents.create', $site->id) }}" class="btn btn-warning">Editar Todos os Conteúdos  <i class="fa fa-edit"></i></a>
+                        <a href="{{ route('site_contents.edit_all', $site->id) }}" class="btn btn-warning">Editar Todos os Conteúdos  <i class="fa fa-edit"></i></a>
                     @endif
                 </div>
             </div>

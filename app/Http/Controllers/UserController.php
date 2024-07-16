@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -132,6 +133,13 @@ class UserController extends Controller
 
     public function destroy($id){
 
+        if(Auth::user()->id == $id){
+            return redirect()->route('users.index')->with([
+               'message' => 'Você não pode deletar o seu próprio usuário.',
+                'alert-type' => 'error'
+            ]);
+        }
+        
         $user = User::findOrFail($id);
         $user->delete();
 

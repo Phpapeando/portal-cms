@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\Site;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -17,6 +19,7 @@ class SiteController extends Controller
     public function show($id)
     {
         $site = Site::with(['profiles', 'fields.contents'])->findOrFail($id);
+        Gate::authorize('view', $site);
         return view('sites.show', compact('site'));
     }
 
@@ -49,6 +52,10 @@ class SiteController extends Controller
         ]);
 
         $site = Site::create($request->all());
+        $profile = Profile::find(1);
+        if ($profile) {
+            $site->profiles()->attach($profile);
+        }
 
         if(isset($site)){
             return redirect()->route('sites.index')->with([

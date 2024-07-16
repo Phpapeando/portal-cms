@@ -42,6 +42,34 @@ class SiteContentController extends Controller
         return view('site_contents.create', compact('site', 'fields'));
     }
 
+    public function editAllContents($siteId)
+    {
+        $site = Site::with('fields.contents')->findOrFail($siteId);
+        return view('sites.edit', compact('site'));
+    }
+
+    public function updateAllContents(Request $request, $siteId)
+    {
+        $site = Site::with('fields.contents')->findOrFail($siteId);
+
+        foreach ($site->fields as $field) {
+            $content = $field->contents->first() ?? new SiteContent(['field_id' => $field->id]);
+            if ($field->field_type == 'image' && $request->hasFile("contents.{$field->id}")) {
+                $filePath = $request->file("contents.{$field->id}")->store('images', 'public');
+                $content->content = $filePath;
+            } else {
+                $content->content = $request->input("contents.{$field->id}");
+            }
+            $content->save();
+        }
+
+        return redirect()->route('sites.show', $siteId)->with([
+            'message' => 'Campos editados com sucesso.',
+            'alert-type' => 'success'
+        ]);
+    }
+
+
     public function storeContents(Request $request, $siteId)
     {
         

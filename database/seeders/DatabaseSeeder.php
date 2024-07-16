@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\Site;
 use App\Models\User;
 
@@ -16,6 +17,15 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        Site::factory(15)->create();
+        $sites = Site::factory(15)->create();
+
+        $profile = Profile::create([
+            'id' => 1,
+            'name' => 'master',
+        ]);
+
+        foreach ($sites as $site) {
+            $site->profiles()->attach($profile);
+        }
     }
 }

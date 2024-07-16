@@ -55,6 +55,12 @@ class ProfileController extends Controller
 
     public function edit($id)
     {
+        if ($id == 1) {
+            return redirect()->route('profiles.index')->with([
+                'message' => 'Esse perfil não pode ser editado.',
+                'alert-type' => 'error'
+            ]);
+        }
 
         $profile = Profile::with('sites')->findOrFail($id);
         $sites = Site::all();
@@ -73,6 +79,13 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id)
     {
+        if ($id == 1) {
+            return redirect()->route('profiles.index')->with([
+                'message' => 'Esse perfil não pode ser editado.',
+                'alert-type' => 'error'
+            ]);
+        }
+
         $profile = Profile::findOrFail($id);
 
         $request->validate([
@@ -97,6 +110,13 @@ class ProfileController extends Controller
 
     public function destroy($id)
     {
+        if ($id == 1) {
+            return redirect()->route('profiles.index')->with([
+                'message' => 'Esse perfil não pode ser excluido.',
+                'alert-type' => 'error'
+            ]);
+        }
+
         $profile = Profile::findOrFail($id);
 
         if ($profile->users()->count() > 0) {
@@ -119,7 +139,7 @@ class ProfileController extends Controller
     public function getUsers($id)
     {
         $profile = Profile::findOrFail($id);
-        $users = $profile->users; 
+        $users = $profile->users;
 
         return response()->json($users);
     }

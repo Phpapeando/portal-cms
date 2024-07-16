@@ -24,6 +24,13 @@
                 break;
         }
     @endif
+
+    $('#deleteUserModal').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      var userId = button.data('user-id');
+      var modal = $(this);
+      modal.find('#deleteForm').attr('action', '/users/' + userId);
+  });
 </script>
 @endsection
 
@@ -42,41 +49,35 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  @forelse($users as $user)
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <th style="width: 10px">#</th>
-                          <th>Nome</th>
-                          <th>Email</th>
-                          <th style="width: 93px">Ações</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>{{ $user->id }}</td>
-                          <td>{{ $user->name }}</td>
-                          <td>{{ $user->email }}</td>
-                          <td class="text-center">
-                              <form action="{{ route('users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este usuário?');">
-                                @csrf
-                                @method('DELETE')
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                <button class="btn btn-sm btn-danger" type="submit"><i class="fas fa-trash"></i></button>
-                            </form>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  @empty
+                  @if(isset($users) && !$users->isEmpty())
                   <table class="table table-bordered">
                     <thead>
                       <tr>
-                        <th class="text-center">Não há usuários cadastrados.</th>
+                        <th style="width: 10px">#</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th style="width: 93px">Ações</th>
                       </tr>
                     </thead>
+                    <tbody>
+                      @foreach($users as $user)
+                      <tr>
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td class="text-center">
+                          <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
+                          <button class="btn btn-sm btn-danger {{ Auth::user()->id == $user->id ? 'disabled' : '' }}" data-toggle="modal" data-target="#deleteUserModal" data-user-id="{{ $user->id }}"><i class="fas fa-trash"></i></button>
+                        </td>
+                      </tr>
+                      @endforeach
+                    </tbody>
                   </table>
-                  @endforelse
+                  @else
+                    <ul id="usersList" class="list-group">
+                      <li class="list-group-item">Nenhum usuário cadastrado.</li>
+                    </ul>
+                  @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
@@ -88,5 +89,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteUserModalLabel">Excluir Usuário</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body">
+              <p>Tem certeza de que deseja excluir este usuário?</p>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <form id="deleteForm" action="" method="POST" style="display:inline;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger">Excluir</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
 
 @endsection

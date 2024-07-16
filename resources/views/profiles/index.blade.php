@@ -55,6 +55,17 @@
           });
       });
   });
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    $('#deleteProfileModal').on('show.bs.modal', function(event) {
+      var button = $(event.relatedTarget);
+      var profileId = button.data('profile-id');
+      var modal = $(this);
+      modal.find('#deleteForm').attr('action', '/profiles/' + profileId);
+  });
+
 </script>
 @endsection
 
@@ -73,40 +84,39 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    @forelse($profiles as $profile)
-                        <table class="table table-bordered">
-                            <thead>
+                    @if (isset($profiles) && !$profiles->isEmpty())
+                    <table class="table table-bordered">
+                        <thead>
                             <tr>
                                 <th style="width: 10px">#</th>
                                 <th>Nome</th>
                                 <th style="width: 220px">Ações</th>
                             </tr>
-                            </thead>
-                            <tbody>
+                        </thead>
+                        <tbody>
+                            @foreach($profiles as $profile)
                             <tr>
                                 <td>{{ $profile->id }}</td>
                                 <td>{{ $profile->name }}</td>
                                 <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-info" data-toggle="modal" data-target="#usersModal" data-profile-id="{{ $profile->id }}">Exibir Usuários  <i class="fas fa-user"></i></a>
-                                <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                                <form action="{{ route('profiles.destroy', $profile->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar este perfil?');" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
+                                @if ($profile->id == 1)
+                                <button class="btn btn-sm btn-warning disabled"><i class="fas fa-edit"></i></button>
+                                <button class="btn btn-sm btn-danger disabled"><i class="fas fa-trash"></i></button>
+                                @else
+                                <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-edit"></i></a>
+                                <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#deleteProfileModal" data-profile-id="{{ $profile->id }}"><i class="fas fa-trash"></i></button>
+                                @endif
                                 </td>
                             </tr>
-                            </tbody>
-                        </table>
-                    @empty
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">Não há perfis cadastrados.</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    @endforelse
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                        <ul id="usersList" class="list-group">
+                            <li class="list-group-item">Nenhum perfil cadastrado.</li>
+                        </ul>
+                    @endif
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer clearfix">
@@ -118,7 +128,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal Usuários -->
 <div class="modal fade" id="usersModal" tabindex="-1" role="dialog" aria-labelledby="usersModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -139,6 +149,31 @@
       </div>
   </div>
 </div>
+<!-- Modal Excluir Perfil -->
+<div class="modal fade" id="deleteProfileModal" tabindex="-1" role="dialog" aria-labelledby="deleteProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteProfileModalLabel">Excluir Perfil</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja excluir este perfil?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" action="" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 @endsection
