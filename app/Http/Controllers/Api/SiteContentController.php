@@ -12,7 +12,6 @@ class SiteContentController extends Controller
     public function index(Site $site)
     {
         $site->load('fields.contents');
-
         return new SiteContentResource($site);
     }
 }

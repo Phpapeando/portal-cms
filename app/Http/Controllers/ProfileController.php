@@ -99,7 +99,7 @@ class ProfileController extends Controller
         if ($request->has('sites')) {
             $profile->sites()->sync($request->sites);
         } else {
-            $profile->sites()->sync([]); // Remove todas as associações se nenhum site estiver selecionado
+            $profile->sites()->sync([]);
         }
 
         return redirect()->route('profiles.index')->with([
