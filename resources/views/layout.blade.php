@@ -24,8 +24,6 @@
   <link rel="stylesheet" href="{{ url('plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
-  <!-- summernote -->
-  <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
   
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -58,8 +56,8 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link pl-0">
-      <img src="{{ url('dist/img/Logo-Sebrae-branco.jpg') }}" alt="AdminLTE Logo" class="brand-image  elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Portal - SEBRAE</span>
+      <img src="{{ url('dist/img/sua-logo-aqui.png') }}" alt="AdminLTE Logo" class="brand-image  elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light"><b>Portal CMS</b></span>
     </a>
 
     <!-- Sidebar -->
