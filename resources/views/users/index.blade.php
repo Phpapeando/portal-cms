@@ -67,7 +67,7 @@
                         <td>{{ $user->email }}</td>
                         <td class="text-center">
                           <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a>
-                          <button class="btn btn-sm btn-danger {{ Auth::user()->id == $user->id ? 'disabled' : '' }}" data-toggle="modal" data-target="#deleteUserModal" data-user-id="{{ $user->id }}"><i class="fas fa-trash"></i></button>
+                          <button class="btn btn-sm btn-danger {{ Auth::user()->id == $user->id ? 'disabled' : '' }}" data-toggle="{{ Auth::user()->id == $user->id ? '' : 'modal' }}" data-target="#deleteUserModal" data-user-id="{{ Auth::user()->id == $user->id ? '' : $user->id }}"><i class="fas fa-trash"></i></button>
                         </td>
                       </tr>
                       @endforeach
